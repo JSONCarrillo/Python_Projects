@@ -16,12 +16,13 @@ class Motherbase(ABC):
             print(f"Your purchase for Intel Platform is {upgrades[key]}")
         else:
             print("Your purchase will cost you: ", key)
-    #Passes argument, but not what data it will be
+    #Passes argument, but will not say what data type it will be
     @abstractmethod
     def payment(self, key):
         pass
 
 class mbPurchase(Motherbase):
+    #defines how to implement payment function from its parent class
     def payment(self, key):
         if key == 'Combat':
             print(f"Your {upgrades[key]} purchase for the Combat Platform is 1m short")
