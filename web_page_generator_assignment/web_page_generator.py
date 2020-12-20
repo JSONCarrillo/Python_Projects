@@ -16,8 +16,8 @@ class ParentWindow(Frame):
         self.master.title("Web Page Generator")
 
         #label for writing the body
-        self.lblBody = Label(self.master, text = "Write HTML Body Here!",
-                             font=('Helvetica',20))
+        self.lblBody = Label(self.master, text = "Write HTML Body Here! *You don't need to write html or body tags",
+                             font=('Helvetica',16))
         self.lblBody.grid(row=0, columnspan=2)
 
         #creates the text box for users to write their html
