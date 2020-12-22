@@ -12,15 +12,14 @@ class ParentWindow(Frame):
         Frame.__init__(self)
         
         self.master = master
-        self.master.resizable(width=False, height=False)
-        self.master.geometry(f"{500}x{600}")
+        self.master.resizable(width=True, height=True)
+        self.master.geometry('600x600')
         self.master.title("File Transfer System")
         
         #label for writing the body
         self.lblBody = Label(self.master, text = "File Transfer System",
                              font=('Helvetica',16))
-        self.lblBody.grid(row=0, columnspan=4)
-
+        self.lblBody.grid(row=0, column=1, columnspan=3)
         #Label for Source
         self.lblSource = Label(self.master, text = 'Source Folder', font=('Helvetica', 8))
         self.lblSource.grid(row=1, column=0, columnspan=2)
