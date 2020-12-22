@@ -10,14 +10,14 @@ class ParentWindow(Frame):
     #initializes the gui interface
     def __init__(self, master):
         Frame.__init__(self)
-
+        
         self.master = master
         self.master.resizable(width=False, height=False)
-        self.master.geometry(f"{1080}x{720}")
-        self.master.title("")
-
+        self.master.geometry(f"{500}x{600}")
+        self.master.title("File Transfer System")
+        
         #label for writing the body
-        self.lblBody = Label(self.master, text = "File Trasfer System",
+        self.lblBody = Label(self.master, text = "File Transfer System",
                              font=('Helvetica',16))
         self.lblBody.grid(row=0, columnspan=4)
 
@@ -128,7 +128,7 @@ class ParentWindow(Frame):
         for i in files:
             modFileTime = os.path.getmtime(source+i)
             #conditional checks if file has been modified within 24 hours
-            if (time.time() - modFileTime) / 3600 > 24:
+            if (time.time() - modFileTime) / 3600 < 24:
                 #shutil moves all files meeting conditonal into destination folder
                 shutil.move(source+i, destination)
         self.listSource.delete(0,END)
