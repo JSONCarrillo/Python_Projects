@@ -53,37 +53,45 @@ class ParentWindow(Frame):
         self.listDest = Listbox(self.master,width=40, height=20)
         self.listDest.grid(row=3,column=3,columnspan=2)
             
-        #view button that calls the view function
+        #button that calls the transferAll function
         self.btnTransAll = Button(self.master, text='Transfer All Files', width=20, height=2,
                              command=self.transferAll)
         self.btnTransAll.grid(row=4, column=0, columnspan = 2)
         
-        #Transfer button that will use the transfer function
+        #Transfer button that will use the transfer24 function
         self.btnTransfer = Button(self.master, text='Transfer files modded within 24hrs', width=30, height=2,
                              command=self.transfer24)
         self.btnTransfer.grid(row=4, column=3, columnspan = 2)
         
-        #cancel button that calls the clear
+        #button that calls the clear
         self.btnClear = Button(self.master, text='Clear All', width=10, height=2,
                              command=self.clear, bg='blue',fg='white')
         self.btnClear.grid(row=5,column=0, columnspan=2)
         
-        #cancel button that calls the cancel function
+        #button that calls the cancel function
         self.btnClose = Button(self.master, text='Close', width=10, height=2,
                              command=self.close, bg='red',fg='white')
         self.btnClose.grid(row=5,column=3, columnspan=2)
-        
-    def viewSource(self):
-        source = self.entSourceFolder.get()
-        filesSource = os.listdir(source)
-        print(filesSource)
 
+    #function allows user to view files in a folder
+    def viewSource(self):
+
+        #saves the user source folder entry entry 
+        source = self.entSourceFolder.get()
+        #varible grabs the list within the source folder
+        filesSource = os.listdir(source)
+
+        #clears list to prevent duplication
         self.listSource.delete(0,END)
+
+        #checks if returned list is empty
         if not filesSource:
             self.listSource.insert(END, 'There is nothing here!')
+        #parses through folder and writes out the file names within the folder
         else:
             for i in filesSource:
                 self.listSource.insert(END, i)
+    #functionally does the same exact thing as the viewSource function, but changes which entry data is called upon
     def viewDest(self):
         destination = self.entDestFolder.get()
         filesDest = os.listdir(destination)
@@ -94,35 +102,45 @@ class ParentWindow(Frame):
         else:
             for i in filesDest:
                 self.listDest.insert(END, i)
+
+    #function transfers all files from source to destination
     def transferAll(self):
+        #gets data from entries and saves it as a variable
         source = self.entSourceFolder.get()
         destination = self.entDestFolder.get()
-        #grabs the source folder
+        #os finds source and creates a list
         files = os.listdir(source)
-        #
+
+        #shutil moves all files to destination
         for i in files:
             shutil.move(source+i, destination)
         self.listSource.delete(0,END)
-        self.listDest.delete(0,END) 
-    #transfers files from source to destination
+        self.listDest.delete(0,END)
+
+    #transfers all files modified within 24 hours from source to destination
     def transfer24(self):
+        #gets data from entries and saves it as a variable
         source = self.entSourceFolder.get()
         destination = self.entDestFolder.get()
-        #grabs the source folder
+        #os finds source and creates a list
         files = os.listdir(source)
-        #
+        
         for i in files:
             modFileTime = os.path.getmtime(source+i)
+            #conditional checks if file has been modified within 24 hours
             if (time.time() - modFileTime) / 3600 > 24:
+                #shutil moves all files meeting conditonal into destination folder
                 shutil.move(source+i, destination)
         self.listSource.delete(0,END)
         self.listDest.delete(0, END)
-    #function closes out the application
+
+    #function clears all entries and listboxes
     def clear(self):
         self.listSource.delete(0,END)
         self.listDest.delete(0,END)
         self.entSourceFolder.delete(0, END)
         self.entDestFolder.delete(0,END)
+        
     #function closes out the application
     def close(self):
         self.master.destroy()
