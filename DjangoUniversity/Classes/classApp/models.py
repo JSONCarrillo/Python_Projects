@@ -10,5 +10,6 @@ class djangoClasses(models.Model):
 
     objects = models.Manager()
 
+    #Changes object name from Object to the title of the object
     def __str__(self):
         return self.title
