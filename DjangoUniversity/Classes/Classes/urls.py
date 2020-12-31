@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    #gives path to django server with /admin to access admin portal
+
+    # gives path to django server with /admin to access admin portal
     path('admin/', admin.site.urls),
 ]
